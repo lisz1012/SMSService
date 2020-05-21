@@ -1,10 +1,7 @@
 package com.lisz.controller;
 
 import com.lisz.model.SMSMetaData;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -13,11 +10,12 @@ import java.util.Date;
 public class SMSController {
 
     @PostMapping("/metadata")
-    public SMSMetaData getSMSMetaData(@RequestParam(value = "id") int id, @RequestParam(value = "type") String type) {
-        if ("PAYED".equals(type)) {
-            return new SMSMetaData(id, "HIGH_PRIORITY", "Hello super user!", new Date());
+    public SMSMetaData getSMSMetaData(@RequestBody SMSMetaData smsMetaData) {
+        System.out.println("I'm called with ID: " + smsMetaData.getId());
+        if ("PAID".equals(smsMetaData.getType())) {
+            return new SMSMetaData(smsMetaData.getId(), "HIGH_PRIORITY", "Hello super user!", new Date());
         } else {
-            return new SMSMetaData(id, "Regular", "Hello user!", new Date());
+            return new SMSMetaData(smsMetaData.getId(), "Regular", "Hello user!", new Date());
         }
     }
 }
