@@ -27,6 +27,12 @@ eureka:
     #Client自身的配置信息
   instance:
     hostname: localhost
+    # 踩坑！相同IP不同的Port只有一个实例注册进了Eureka
+      #
+      #原因是所有的机器都是instance-id: sms-service 这个ID都一样不行，否则Eureka只认一个，只有当这个下线之后，另一个不认的才能顶上来。
+      #启发：反着用这一招，可以做主备高可用
+    #
+    #https://www.zhihu.com/question/62914011
     instance-id: sms-service
     #prefer-ip-address: true
     #ip-address: 127.0.0.1
